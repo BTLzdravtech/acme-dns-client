@@ -21,7 +21,7 @@ func main() {
 	checkFlags := flag.NewFlagSet("check", flag.ExitOnError)
 	checkFlags.BoolVar(&conf.Verbose, "v", false, "Verbose output")
 	checkFlags.BoolVar(&conf.Debug, "vv", false, "Very verbose (DEBUG) output")
-	checkFlags.StringVar(&conf.DNSServer, "ns", "1.1.1.1:53", "Fallback DNS server and port to use for lookups")
+	checkFlags.StringVar(&conf.DNSServer, "ns", "1.1.1.1:53", "Use DNS server and port to use for lookups")
 	checkFlags.StringVar(&conf.Domain, "d", "", "Target domain name")
 
 	checkFlags.Usage = FSUsage(checkFlags)
@@ -30,7 +30,7 @@ func main() {
 	registerFlags.BoolVar(&conf.Dangerous, "dangerous", false, "Acknowledgement that this is a dangerous action")
 	registerFlags.BoolVar(&conf.Verbose, "v", false, "Verbose output")
 	registerFlags.BoolVar(&conf.Debug, "vv", false, "Very verbose (DEBUG) output")
-	registerFlags.StringVar(&conf.DNSServer, "ns", "1.1.1.1:53", "Fallback DNS server and port to use for lookups")
+	registerFlags.StringVar(&conf.DNSServer, "ns", "1.1.1.1:53", "Use DNS server and port to use for lookups")
 	registerFlags.StringVar(&conf.Domain, "d", "", "Target domain name")
 	registerFlags.StringVar(&conf.Server, "s",
 		"https://auth.acme-dns.io", "Acme-dns server instance to use")
@@ -42,7 +42,7 @@ func main() {
 	listFlags := flag.NewFlagSet("list", flag.ExitOnError)
 	listFlags.BoolVar(&conf.Verbose, "v", false, "Verbose output")
 	listFlags.BoolVar(&conf.Debug, "vv", false, "Very verbose (DEBUG) output")
-	listFlags.StringVar(&conf.DNSServer, "ns", "1.1.1.1:53", "Fallback DNS server and port to use for lookups")
+	listFlags.StringVar(&conf.DNSServer, "ns", "1.1.1.1:53", "Use DNS server and port to use for lookups")
 
 	listFlags.Usage = FSUsage(listFlags)
 

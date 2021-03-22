@@ -35,10 +35,15 @@ func (c *Client) GetCNAME(domain string) (CNAMERecord, error) {
 	msg := new(dns.Msg)
 	msg.SetQuestion(dns.Fqdn(domain), dns.TypeCNAME)
 	msg.RecursionDesired = true
-	ns, err := c.GetAuthoritativeNS(domain)
-	if err != nil {
-		// Fallback to default nameserver
+	ns := ""
+	if c.Server != "" {
 		ns = c.Server
+	} else {
+		discoveredNs, err := c.GetAuthoritativeNS(domain)
+		if err != nil {
+			return NewCNAMERecord(), err
+		}
+		ns = discoveredNs
 	}
 	in, err := dns.Exchange(msg, ns)
 	if err != nil {

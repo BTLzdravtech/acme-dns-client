@@ -70,10 +70,15 @@ func (c *Client) GetCAA(domain string) ([]CAARecord, error) {
 	msg.SetQuestion(dns.Fqdn(domain), dns.TypeCAA)
 	msg.RecursionDesired = true
 
-	ns, err := c.GetAuthoritativeNS(domain)
-	if err != nil {
-		// Fallback to default nameserver
+	ns := ""
+	if c.Server != "" {
 		ns = c.Server
+	} else {
+		discoveredNs, err := c.GetAuthoritativeNS(domain)
+		if err != nil {
+			return records, err
+		}
+		ns = discoveredNs
 	}
 	in, err := dns.Exchange(msg, ns)
 
